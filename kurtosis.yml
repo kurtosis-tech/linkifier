@@ -1,0 +1,4 @@
+name: github.com/kurtosis-tech/linkifier
+
+replace:
+  github.com/kurtosis-tech/postgres-package: /postgres-package
