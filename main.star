@@ -1,21 +1,19 @@
 postgres = import_module("github.com/kurtosis-tech/postgres-package/main.star")
 
 def run(plan, args):
-    # database = postgres.run(plan, launch_adminer=True, extra_configs=["hba_file=/data/hba_config/pg_hba.conf"])
     database = postgres.run(plan, launch_adminer=True)
     database_url = "postgresql://postgres:MyPassword1!@postgres/postgres".format(database.service.ip_address)
     plan.print(database_url)
 
     import_script = plan.upload_files(src="./import_csv.sh", name="import-data-script")
-    db_csvs = plan.upload_files(src="./data/AdventureWorks2014", name="db-csvs")
+    db_csvs = plan.upload_files(src="./data", name="db-csvs")
     plan.run_sh(
         name="import-data",
         description="put data into database",
-        # run="sleep 100000s",
         run="apk add postgresql-client && /home/import_csv.sh \"{0}\" /data".format(database_url),
         files={
             "/home": import_script,
-            "/data": db_csvs
+            "/data": db_csvs,
         },
     )
 
