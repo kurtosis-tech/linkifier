@@ -1,8 +1,14 @@
 # Vendor-specific connection properties
 
-vendor=PostgreSQL
-host={{ .DB_HOST }}
+tableBlacklist=
+validateFK=false
 port=5432
-database=postgres
-schema=public
+schema=
 username=postgres
+windowsAuthentication=false
+serviceName=
+ignoreKnownFK=false
+vendor=PostgreSQL
+database=postgres
+host={{ .DB_HOST }}
+password=MyPassword1!
